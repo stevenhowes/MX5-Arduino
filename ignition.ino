@@ -7,3 +7,4 @@ void task_coilx_charge_run(int pin)
 {
     digitalWrite(pin, HIGH);
 }
+

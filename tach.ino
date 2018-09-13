@@ -7,7 +7,8 @@ void task_tach_high_run()
 {
   digitalWrite(pin_tach, HIGH);
 
-  // Auto-schedule the end
+  // Schedule the end
   task_tach_low = micros() + tach_pulse_length;
 }
+
 

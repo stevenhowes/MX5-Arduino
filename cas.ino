@@ -5,6 +5,14 @@ void cas_process()
   byte sgt = digitalRead(pin_cas_sgt);
   unsigned long timestamp = micros();
 
+  if(rpm_current_value > rpm_range_max)
+  {
+    rpm_limited_log = 1;
+    rpm_limited = 1;
+  }else{
+    rpm_limited = 0;
+  }
+
   // Find rising edge
   if(sgt == 1)
   {
@@ -30,6 +38,18 @@ void cas_process()
       // If we have crank pulse present then cyl1 is TDC
       if(digitalRead(pin_cas_sgc) == HIGH)
       {
+        // If we've arrived at cylinder 1 unexpectedly then we need to know!
+        if(cylinder_next[cylinder_tdc] != 1)
+        {
+          cas_sync_fail=1;
+          cas_sync_fail_log=1;
+        }
+        else
+        {
+          cas_sync_fail = 0;
+        }
+
+        // Use this number because we KNOW it's right
         cylinder_tdc = 1;
       }
       else
@@ -39,22 +59,27 @@ void cas_process()
 
       // Schedule next cylinder, this one is already past TDC
       cylinder_next_fire = cylinder_next[cylinder_tdc];
-      if(cylinder_next_fire == 1)
+
+      // If we're out of sync, we  kill ignition for a bit for now
+      if((cas_sync_fail == 0) && (rpm_limited == 0))
       {
-         task_coil1_fire = micros() + (usec_per_degree * 180);
-         task_coil1_charge = task_coil1_fire - coil_dwell;
-      }else if(cylinder_next_fire == 2)
-      {
-         task_coil2_fire = micros() + (usec_per_degree * 180);
-         task_coil2_charge = task_coil2_fire - coil_dwell;
-      }else if(cylinder_next_fire == 3)
-      {
-         task_coil3_fire = micros() + (usec_per_degree * 180);
-         task_coil3_charge = task_coil3_fire - coil_dwell;
-      }else if(cylinder_next_fire == 4)
-      {
-         task_coil4_fire = micros() + (usec_per_degree * 180);
-         task_coil4_charge = task_coil4_fire - coil_dwell;
+        if(cylinder_next_fire == 1)
+        {
+           task_coil1_fire = micros() + (usec_per_degree * (180 + ignition_offset - table_ignition[rpm_current_index + (map_current_index << 4)]));
+           task_coil1_charge = task_coil1_fire - (coil_dwell + table_dwell[battery_voltage_index]);
+        }else if(cylinder_next_fire == 2)
+        {
+           task_coil2_fire = micros() + (usec_per_degree * (180 + ignition_offset - table_ignition[rpm_current_index + (map_current_index << 4)]));
+           task_coil2_charge = task_coil2_fire - (coil_dwell + table_dwell[battery_voltage_index]);
+        }/*else if(cylinder_next_fire == 3)
+        {
+           task_coil3_fire = micros() + (usec_per_degree * 180);
+           task_coil3_charge = task_coil3_fire - (coil_dwell + table_dwell[battery_voltage_index]);
+        }else if(cylinder_next_fire == 4)
+        {
+           task_coil4_fire = micros() + (usec_per_degree * 180);
+           task_coil4_charge = task_coil4_fire - (coil_dwell + table_dwell[battery_voltage_index]);
+        }*/
       }
     }
   }
@@ -88,6 +113,7 @@ void cas_process()
   }
   cas_sgc_lastvalue = sgc;
 }
+
 
 
 

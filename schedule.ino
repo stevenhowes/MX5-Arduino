@@ -29,7 +29,7 @@ void schedule_process()
       task_coil2_charge = 0;
       tasks++;
   }
-
+/*
   // Coil 3
   if((task_coil3_fire > 0) && (micros() > task_coil3_fire))
   {
@@ -55,7 +55,7 @@ void schedule_process()
       task_coil4_charge = 0;
       tasks++;
   }
-
+*/
   // Only carry on to the lower priority stuff if we did nothing else
   if(tasks > 0)
     return;
@@ -70,6 +70,11 @@ void schedule_process()
   {
     task_rpm = micros() + task_rpm_interval;
     task_rpm_run();
+    tasks++;
+  }else if(micros() > task_battery)
+  {
+    task_battery = micros() + task_battery_interval;
+    task_battery_run();
     tasks++;
   }
 
@@ -96,4 +101,5 @@ void schedule_process()
       task_debug = micros() + task_debug_interval;
   }
 }
+
 

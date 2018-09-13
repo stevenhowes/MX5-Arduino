@@ -20,7 +20,9 @@ void setup() {
   digitalWrite(pin_coil3, LOW);
   digitalWrite(pin_coil4, LOW);
 
+  // Get an initial reading and output debug if it's not atmospheric
   map_init();
+  battery_init();
 }
 
 void loop() {
@@ -34,3 +36,4 @@ void loop() {
   
 
 }
+
