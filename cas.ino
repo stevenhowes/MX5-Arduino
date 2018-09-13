@@ -5,6 +5,8 @@ void cas_process()
   byte sgt = digitalRead(pin_cas_sgt);
   unsigned long timestamp = micros();
 
+  // Simple rev limiter, drop the spark until we're slow again and set a flag so we log it
+  // at the next chance we get
   if(rpm_current_value > rpm_range_max)
   {
     rpm_limited_log = 1;
@@ -21,6 +23,7 @@ void cas_process()
       // Handle tach
       task_tach_high = micros();
 
+      // Log when it was
       cas_sgt_lastrise = timestamp;
     }
   }
@@ -33,12 +36,14 @@ void cas_process()
       // Difference between last and current is 180 degrees
       usec_per_degree = (timestamp - cas_sgt_lastfall) / 180;
 
+      // Log when it was
       cas_sgt_lastfall = timestamp;
 
       // If we have crank pulse present then cyl1 is TDC
       if(digitalRead(pin_cas_sgc) == HIGH)
       {
         // If we've arrived at cylinder 1 unexpectedly then we need to know!
+        // We'll drop sparks until we're back and log it
         if(cylinder_next[cylinder_tdc] != 1)
         {
           cas_sync_fail=1;
@@ -46,6 +51,7 @@ void cas_process()
         }
         else
         {
+          // Clear it if we're in sync, but don't clear log flag
           cas_sync_fail = 0;
         }
 
@@ -60,7 +66,7 @@ void cas_process()
       // Schedule next cylinder, this one is already past TDC
       cylinder_next_fire = cylinder_next[cylinder_tdc];
 
-      // If we're out of sync, we  kill ignition for a bit for now
+      // If we're out of sync, we  kill ignition for a bit for now. Same if we're at crazy RPM
       if((cas_sync_fail == 0) && (rpm_limited == 0))
       {
         if(cylinder_next_fire == 1)
@@ -71,18 +77,12 @@ void cas_process()
         {
            task_coil2_fire = micros() + (usec_per_degree * (180 + ignition_offset - table_ignition[rpm_current_index + (map_current_index << 4)]));
            task_coil2_charge = task_coil2_fire - (coil_dwell + table_dwell[battery_voltage_index]);
-        }/*else if(cylinder_next_fire == 3)
-        {
-           task_coil3_fire = micros() + (usec_per_degree * 180);
-           task_coil3_charge = task_coil3_fire - (coil_dwell + table_dwell[battery_voltage_index]);
-        }else if(cylinder_next_fire == 4)
-        {
-           task_coil4_fire = micros() + (usec_per_degree * 180);
-           task_coil4_charge = task_coil4_fire - (coil_dwell + table_dwell[battery_voltage_index]);
-        }*/
+        }
       }
     }
   }
+
+  // Save current state
   cas_sgt_lastvalue = sgt;
 
 

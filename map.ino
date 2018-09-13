@@ -2,6 +2,7 @@ void map_init()
 {
   task_map_run();
 
+  // Highest and lowest kPa anywhere on earth
   if(map_current_value < 87)
     Serial.println("ERR: MAP low");
   else if(map_current_value > 108)

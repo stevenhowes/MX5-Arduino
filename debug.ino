@@ -39,12 +39,14 @@ void task_debug_run()
   Serial.print(battery_voltage_value);
   Serial.println("");
 
+  // Log if we're out of sync timing-wise
   if(cas_sync_fail_log > 0)
   {
     Serial.println("ERR: CAS sync fail");
     cas_sync_fail_log = 0;
   }
 
+  // Log if we've gone over RPM
   if(rpm_limited_log > 0)
   {
     Serial.println("ERR: RPM limit");

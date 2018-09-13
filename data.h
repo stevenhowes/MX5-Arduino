@@ -7,8 +7,8 @@ byte          map_current_index         = 0;              // Index
 byte          map_current_value         = 0;              // KPA value
 
 // Rotation
-byte            rpm_limited             = 0;
-byte            rpm_limited_log         = 0;
+byte            rpm_limited             = 0;              // Are we currently running over RPM?
+byte            rpm_limited_log         = 0;              // Are we due a warning message
 const int       rpm_range_min           = 0;              // Index 0
 const int       rpm_range_max           = 7200;           // Index 15
 byte            rpm_current_index       = 0;              // Table index of current RPM
@@ -32,13 +32,11 @@ byte            cas_sync_fail_log       = 0;
 byte            cylinder_tdc            = 0;              // Most recent cylinder to hit TDC
 byte            cylinder_next_fire      = 0;              // Next cylinder due a spark
 //byte            cylinder_next_inject    = 0;            // Next cylinder due fuel
-// Sequential and wasted spark
-//byte            cylinder_next[]         = {0,3,1,4,2};    // For 1-3-4-2 Current cylinder as index returns next cylinder
-byte            cylinder_next[]         = {0,2,1,2,1};    // For 1-3-4-2 Current cylinder as index returns next cylinder
+byte            cylinder_next[]         = {0,2,1,2,1};    // CAn be 0,3,1,4,2 if we ever go sequential
 
 // Ignition
-const int       coil_dwell              = 4000;           // 5ms for stock coil
-const int        ignition_offset = 0;
+const int       coil_dwell              = 4000;           // 4 read from scope on factory ECU
+const int       ignition_offset         = 0;              // Difference between sensor and real world
 
 // Tachometer
 const int       tach_pulse_length       = 5000;           // 5ms equiv to dwell time on old coil at sensible RPM (tach pulse length)
@@ -50,8 +48,8 @@ const int       tach_pulse_length       = 5000;           // 5ms equiv to dwell 
 //int             o2_current_value        = 0;            // Curent milivolts
 
 // Battery
-byte              battery_voltage_value   = 13;
-byte              battery_voltage_index   = 7;
-const int         battery_cal_7v          = 252;
-const int         battery_cal_16v         = 579;
+byte              battery_voltage_value   = 13;           // A default - is nuked quickly
+byte              battery_voltage_index   = 7;            // The above as an index
+const int         battery_cal_7v          = 252;          // Cal value for 7v using 10k/1k potential divider
+const int         battery_cal_16v         = 579;          // The above for 16v
 

@@ -17,10 +17,4 @@ unsigned long         task_coil1_charge     =     0;              // Idle
 unsigned long         task_coil1_fire       =     0;              // Idle
 unsigned long         task_coil2_charge     =     0;              // Idle
 unsigned long         task_coil2_fire       =     0;              // Idle
-/*
-unsigned long         task_coil3_charge     =     0;              // Idle
-unsigned long         task_coil3_fire       =     0;              // Idle
-unsigned long         task_coil4_charge     =     0;              // Idle
-unsigned long         task_coil4_fire       =     0;              // Idle
-*/
 

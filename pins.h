@@ -19,7 +19,6 @@ const int pin_batt                = A4;   // IN: Battery voltage
 
 const int pin_coil1 = 47;
 const int pin_coil2 = 45;
-const int pin_coil3 = 43; // TMP: SGT out
-const int pin_coil4 = 41; // TMP: SGC out
+
 
 

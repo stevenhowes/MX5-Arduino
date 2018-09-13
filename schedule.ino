@@ -29,33 +29,7 @@ void schedule_process()
       task_coil2_charge = 0;
       tasks++;
   }
-/*
-  // Coil 3
-  if((task_coil3_fire > 0) && (micros() > task_coil3_fire))
-  {
-      task_coilx_fire_run(pin_coil3);
-      task_coil3_fire = 0;
-      tasks++;
-  }else if((task_coil3_charge > 0) && (micros() > task_coil3_charge))
-  {
-      task_coilx_charge_run(pin_coil3);
-      task_coil3_charge = 0;
-      tasks++;
-  }
 
-  // Coil 4
-  if((task_coil4_fire > 0) && (micros() > task_coil4_fire))
-  {
-      task_coilx_fire_run(pin_coil4);
-      task_coil4_fire = 0;
-      tasks++;
-  }else if((task_coil4_charge > 0) && (micros() > task_coil4_charge))
-  {
-      task_coilx_charge_run(pin_coil4);
-      task_coil4_charge = 0;
-      tasks++;
-  }
-*/
   // Only carry on to the lower priority stuff if we did nothing else
   if(tasks > 0)
     return;
