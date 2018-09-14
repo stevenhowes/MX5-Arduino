@@ -31,8 +31,8 @@ byte            cas_sync_fail_log         = 0;            // We need to output t
 // Cylinder sequencing
 byte            cylinder_tdc              = 0;            // Most recent cylinder to hit TDC
 byte            cylinder_next_fire        = 0;            // Next cylinder due a spark
-//byte          cylinder_next_inject      = 0;            // Next cylinder due fuel
-byte            cylinder_next[]           = {0,2,1,2,1};  // Can be 0,3,1,4,2 if we ever go sequential
+byte            cylinder_next_inject      = 0;            // Next cylinder due fuel
+byte            cylinder_next_seq[]       = {0,3,1,4,2};  // Sequential
 
 // Ignition
 const int       coil_dwell                = 4000;         // 4 read from scope on factory ECU

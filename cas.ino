@@ -44,7 +44,7 @@ void cas_process()
       {
         // If we've arrived at cylinder 1 unexpectedly then we need to know!
         // We'll drop sparks until we're back and log it
-        if(cylinder_next[cylinder_tdc] != 1)
+        if(cylinder_next_seq[cylinder_tdc] != 1)
         {
           cas_sync_fail=1;
           cas_sync_fail_log=1;
@@ -60,20 +60,20 @@ void cas_process()
       }
       else
       {
-        cylinder_tdc = cylinder_next[cylinder_tdc];
+        cylinder_tdc = cylinder_next_seq[cylinder_tdc];
       }
 
       // Schedule next cylinder, this one is already past TDC
-      cylinder_next_fire = cylinder_next[cylinder_tdc];
+      cylinder_next_fire = cylinder_next_seq[cylinder_tdc];
 
       // If we're out of sync, we  kill ignition for a bit for now. Same if we're at crazy RPM
       if((cas_sync_fail == 0) && (rpm_limited == 0))
       {
-        if(cylinder_next_fire == 1)
+        if((cylinder_next_fire == 1) || (cylinder_next_fire == 4))
         {
            task_coil1_fire = micros() + (usec_per_degree * (180 + ignition_offset - table_ignition[rpm_current_index + (map_current_index << 4)]));
            task_coil1_charge = task_coil1_fire - (coil_dwell + table_dwell[battery_voltage_index]);
-        }else if(cylinder_next_fire == 2)
+        }else if((cylinder_next_fire == 2) || (cylinder_next_fire == 3))
         {
            task_coil2_fire = micros() + (usec_per_degree * (180 + ignition_offset - table_ignition[rpm_current_index + (map_current_index << 4)]));
            task_coil2_charge = task_coil2_fire - (coil_dwell + table_dwell[battery_voltage_index]);
