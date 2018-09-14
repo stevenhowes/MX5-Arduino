@@ -7,7 +7,8 @@ void setup() {
   // Sensors
   pinMode(pin_map, INPUT);
   pinMode(pin_batt, INPUT);
-
+  pinMode(pin_throttle, INPUT);
+  
   // Dash / debug outputs
   pinMode(pin_tach, OUTPUT);
   digitalWrite(pin_tach, LOW);
@@ -21,9 +22,10 @@ void setup() {
   // Set up serial speed etc and do intro output
   debug_setup();
   
-  // Get an initial reading and output debug if it's not atmospheric
+  // Get initial values and check they are sane
   map_init();
   battery_init();
+  throttle_init();
 }
 
 void loop() {

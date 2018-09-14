@@ -17,6 +17,8 @@ void debug_setup()
   Serial.print("rpm_current_value");
   Serial.print(",");
   Serial.print("battery_voltage_value");
+  Serial.print(",");
+  Serial.print("throttle_current_value");
   Serial.println("");
 
   // Now we have init we can do real loop
@@ -37,6 +39,8 @@ void task_debug_run()
   Serial.print(rpm_current_value);
   Serial.print(",");
   Serial.print(battery_voltage_value);
+  Serial.print(",");
+  Serial.print(throttle_current_value);
   Serial.println("");
 
   // Log if we're out of sync timing-wise

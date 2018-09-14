@@ -45,6 +45,11 @@ void schedule_process()
     task_rpm = micros() + task_rpm_interval;
     task_rpm_run();
     tasks++;
+  }else if(micros() > task_throttle)
+  {
+    task_throttle = micros() + task_throttle_interval;
+    task_throttle_run();
+    tasks++;
   }else if(micros() > task_battery)
   {
     task_battery = micros() + task_battery_interval;
