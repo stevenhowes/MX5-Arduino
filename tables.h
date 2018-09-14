@@ -47,9 +47,18 @@ byte    table_ignition[]    = {
 // X = Voltage 7-16
 // Index = [battery_voltage_index]
 // Value = additional dwell in usec
-const int table_dwell[]     = {
-              0, 0, 0, 0, 0, 0, 0, 0, 0, 0
+const int table_dwell_voltage[]     = {
+              2000, 2000, 2000, 2000, 1000, 0, 0, 0, 0, 0
             };
+
+// X = RPM 0 - 7200
+// Index = [rpm_current_index]
+// Value = additional dwell in usec
+const int table_dwell_rpm[]     = {
+              3000, 2000, 2000, 1000, 0, 0, 0, 0, 0, 0, 0, -1000, -1000, -1000, -2000, -2000,
+            };
+
+
 
 
 

@@ -72,11 +72,11 @@ void cas_process()
         if((cylinder_next_fire == 1) || (cylinder_next_fire == 4))
         {
            task_coil1_fire = micros() + (usec_per_degree * (180 + ignition_offset - table_ignition[rpm_current_index + (map_current_index << 4)]));
-           task_coil1_charge = task_coil1_fire - (coil_dwell + table_dwell[battery_voltage_index]);
+           task_coil1_charge = task_coil1_fire - (coil_dwell + table_dwell_voltage[battery_voltage_index] + table_dwell_rpm[rpm_current_index]);
         }else if((cylinder_next_fire == 2) || (cylinder_next_fire == 3))
         {
            task_coil2_fire = micros() + (usec_per_degree * (180 + ignition_offset - table_ignition[rpm_current_index + (map_current_index << 4)]));
-           task_coil2_charge = task_coil2_fire - (coil_dwell + table_dwell[battery_voltage_index]);
+           task_coil2_charge = task_coil2_fire - (coil_dwell + table_dwell_voltage[battery_voltage_index] + table_dwell_rpm[rpm_current_index]);
         }
       }
     }
