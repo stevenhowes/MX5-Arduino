@@ -19,6 +19,16 @@ void setup() {
   digitalWrite(pin_coil1, LOW);
   digitalWrite(pin_coil2, LOW);
 
+  pinMode(pin_injector1, OUTPUT);
+  pinMode(pin_injector2, OUTPUT);
+  pinMode(pin_injector3, OUTPUT);
+  pinMode(pin_injector4, OUTPUT);
+
+  digitalWrite(pin_injector1, LOW);
+  digitalWrite(pin_injector2, LOW);
+  digitalWrite(pin_injector3, LOW);
+  digitalWrite(pin_injector4, LOW);
+
   // Set up serial speed etc and do intro output
   debug_setup();
   

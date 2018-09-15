@@ -69,6 +69,7 @@ void cas_process()
       // If we're out of sync, we  kill ignition for a bit for now. Same if we're at crazy RPM
       if((cas_sync_fail == 0) && (rpm_limited == 0))
       {
+        // Igntion
         if((cylinder_next_fire == 1) || (cylinder_next_fire == 4))
         {
            task_coil1_fire = micros() + (usec_per_degree * (180 + ignition_offset - table_ignition[rpm_current_index + (map_current_index << 4)]));
@@ -77,6 +78,25 @@ void cas_process()
         {
            task_coil2_fire = micros() + (usec_per_degree * (180 + ignition_offset - table_ignition[rpm_current_index + (map_current_index << 4)]));
            task_coil2_charge = task_coil2_fire - (coil_dwell + table_dwell_voltage[battery_voltage_index] + table_dwell_rpm[rpm_current_index]);
+        }
+
+        // Injection
+        if(cylinder_next_fire == 1)
+        {
+           task_injector1_close = micros() + (usec_per_degree * (360 + ignition_offset + 130));
+           task_injector1_open = task_injector1_close - table_pulsewidth[rpm_current_index + (map_current_index << 4)];
+        }else if(cylinder_next_fire == 2)
+        {
+           task_injector2_close = micros() + (usec_per_degree * (360 + ignition_offset + 130));
+           task_injector2_open = task_injector2_close - table_pulsewidth[rpm_current_index + (map_current_index << 4)];
+        }else if(cylinder_next_fire == 3)
+        {
+           task_injector3_close = micros() + (usec_per_degree * (360 + ignition_offset + 130));
+           task_injector3_open = task_injector3_close - table_pulsewidth[rpm_current_index + (map_current_index << 4)];
+        }else if(cylinder_next_fire == 4)
+        {
+           task_injector4_close = micros() + (usec_per_degree * (360 + ignition_offset + 130));
+           task_injector4_open = task_injector4_close - table_pulsewidth[rpm_current_index + (map_current_index << 4)];
         }
       }
     }

@@ -13,8 +13,7 @@ const int       rpm_range_min             = 0;            // Index 0
 const int       rpm_range_max             = 7200;         // Index 15
 byte            rpm_current_index         = 0;            // Table index of current RPM
 int             rpm_current_value         = 0;            // Current engine RPM
-int             usec_per_degree           = 0;            // uSec per degree of rotation at current RPM
-//unsigned long usec_per_degree           = 0;
+unsigned long   usec_per_degree           = 0;            // uSec per degree of rotation at current RPM
 
 // Cam Angle Sensor
 unsigned long   cas_sgt_lastrise          = 0;            // micros() of the last rise

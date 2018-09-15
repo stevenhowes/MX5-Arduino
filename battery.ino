@@ -8,7 +8,7 @@ void battery_init()
   {
     Serial.println("ERR: Battery low");
   }
-  else if(battery_voltage_value > 14)
+  else if(battery_voltage_value > 15)
   {
     Serial.println("ERR: Battery high");
   }

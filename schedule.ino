@@ -30,6 +30,58 @@ void schedule_process()
       tasks++;
   }
 
+  // Injector 1
+  if((task_injector1_close > 0) && (micros() > task_injector1_close))
+  {
+      task_injectorx_close_run(pin_injector1);
+      task_injector1_close = 0;
+      tasks++;
+  }else if((task_injector1_open > 0) && (micros() > task_injector1_open))
+  {
+      task_injectorx_open_run(pin_injector1);
+      task_injector1_open= 0;
+      tasks++;
+  }
+
+  // Injector 2
+  if((task_injector2_close > 0) && (micros() > task_injector2_close))
+  {
+      task_injectorx_close_run(pin_injector2);
+      task_injector2_close = 0;
+      tasks++;
+  }else if((task_injector2_open > 0) && (micros() > task_injector2_open))
+  {
+      task_injectorx_open_run(pin_injector2);
+      task_injector2_open= 0;
+      tasks++;
+  }
+
+  // Injector 3
+  if((task_injector3_close > 0) && (micros() > task_injector3_close))
+  {
+      task_injectorx_close_run(pin_injector3);
+      task_injector3_close = 0;
+      tasks++;
+  }else if((task_injector3_open > 0) && (micros() > task_injector3_open))
+  {
+      task_injectorx_open_run(pin_injector3);
+      task_injector3_open= 0;
+      tasks++;
+  }
+
+  // Injector 4
+  if((task_injector4_close > 0) && (micros() > task_injector4_close))
+  {
+      task_injectorx_close_run(pin_injector4);
+      task_injector4_close = 0;
+      tasks++;
+  }else if((task_injector4_open > 0) && (micros() > task_injector4_open))
+  {
+      task_injectorx_open_run(pin_injector4);
+      task_injector4_open= 0;
+      tasks++;
+  }
+
   // Only carry on to the lower priority stuff if we did nothing else
   if(tasks > 0)
     return;
