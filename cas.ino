@@ -46,8 +46,12 @@ void cas_process()
         // We'll drop sparks until we're back and log it
         if(cylinder_next_seq[cylinder_tdc] != 1)
         {
+          // Don't output if it's already happened once
+          if(cas_sync_fail == 0)
+            cas_sync_fail_log=1;
+
+          // Log fail so we abandon time sensitive stuff
           cas_sync_fail=1;
-          cas_sync_fail_log=1;
         }
         else
         {
