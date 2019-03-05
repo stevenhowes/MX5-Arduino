@@ -106,6 +106,26 @@ void task_debug_run()
       {
         table_pulsewidth[index.toInt()] = value.toInt();
       }
+    }else if(readbyte == 'p') // Dump PID
+    {
+      readbyte = Serial.read();
+      if(readbyte == 'v')
+      {
+        Serial.print("VOL: ");
+        Serial.println(battery_voltage_value);
+      } else if(readbyte == 't')
+      {
+        Serial.print("TPS: ");
+        Serial.println(throttle_current_value);
+      }else if(readbyte == 'r')
+      {
+        Serial.print("RPM: ");
+        Serial.println(rpm_current_value);
+      }else if(readbyte == 'm')
+      {
+        Serial.print("MAP: ");
+        Serial.println(map_current_value);
+      }
     }else if(readbyte == 'i') // Disable index output
     {
       debug_live_index = 0;

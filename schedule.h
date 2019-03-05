@@ -11,7 +11,7 @@ unsigned long         task_battery            =     1;              // Get initi
 const unsigned long   task_battery_interval   =     265000;         // 265ms
 
 unsigned long         task_debug              =     0;              // Triggers after init
-const unsigned long   task_debug_interval     =     387000;         // 2s (eh?)
+const unsigned long   task_debug_interval     =     187000;         // 2s (eh?)
 
 unsigned long         task_tach_high          =     0;              // Ilde
 unsigned long         task_tach_low           =     0;              // Idle
