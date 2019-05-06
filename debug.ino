@@ -145,10 +145,9 @@ void task_debug_run()
     {
       resetFunc();
     }
+    // Allow it to re-sync (i.e. reset CAS failure as it was intentional)
+    cas_sync_initial = 1;
   }
-
-  // Allow it to re-sync (i.e. reset CAS failure as it was intentional)
-  cas_sync_initial = 1;
 }
 
 // Outputs the fuel table as JSON
