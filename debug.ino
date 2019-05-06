@@ -18,7 +18,10 @@ void task_debug_run()
   // Log if we're out of sync timing-wise
   if(cas_sync_fail_log > 0)
   {
-    Serial.println("ERR: CAS sync fail");
+    if(cas_sync_initial == 0)
+    {
+       Serial.println("ERR: CAS sync fail");
+    }
     cas_sync_fail_log = 0;
   }
 
@@ -138,8 +141,14 @@ void task_debug_run()
     }else if(readbyte == 'R') // Enable RPM output
     {
       debug_rpm = 1;
+    }else if(readbyte == 'S') // Arduino reset
+    {
+      resetFunc();
     }
   }
+
+  // Allow it to re-sync (i.e. reset CAS failure as it was intentional)
+  cas_sync_initial = 1;
 }
 
 // Outputs the fuel table as JSON
@@ -200,4 +209,3 @@ void task_debug_safekill()
   cas_sync_fail=1;
   cas_sync_fail_log=0;
 }
-

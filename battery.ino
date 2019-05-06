@@ -12,10 +12,6 @@ void battery_init()
   {
     Serial.println("ERR: Battery high");
   }
-  else
-  {
-    Serial.println("INF: Battery ok");
-  }
 }
 
 void task_battery_run()
@@ -27,5 +23,3 @@ void task_battery_run()
   // Nudge it along so we have an index starting at 0 for tables etc
   battery_voltage_index = constrain(battery_voltage_value,7,16) - 7;
 }
-
-

@@ -56,7 +56,13 @@ void cas_process()
         else
         {
           // Clear it if we're in sync, but don't clear log flag
-          cas_sync_fail = 0;
+          if(cas_sync_initial == 1)
+          {
+              cas_sync_initial = 0;
+              cas_sync_fail = 0;
+              cas_sync_fail_log = 0;
+          }
+
         }
 
         // Use this number because we KNOW it's right
@@ -137,7 +143,3 @@ void cas_process()
   }
   cas_sgc_lastvalue = sgc;
 }
-
-
-
-

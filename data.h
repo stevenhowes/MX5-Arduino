@@ -24,6 +24,7 @@ unsigned long   cas_sgc_lastrise          = 0;            // micros() of the las
 unsigned long   cas_sgc_lastfall          = 0;            //    ""    of the last fall
 byte            cas_sgc_lastvalue         = 0;            // The state of SGC on the previous cycle
 
+byte            cas_sync_initial          = 1;
 byte            cas_sync_fail             = 0;            // We lost track of a cylinder
 byte            cas_sync_fail_log         = 0;            // We need to output this in debug
 
@@ -57,4 +58,3 @@ byte            throttle_current_value    = 0;            // Percentage
 byte            throttle_previous_1_value = 0;            // Percentage
 byte            throttle_previous_2_value = 0;            // Percentage
 byte            throttle_delta            = 0;            // Difference between current and delta
-

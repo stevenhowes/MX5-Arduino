@@ -2,6 +2,7 @@
 #include "data.h"
 #include "schedule.h"
 #include "tables.h"
+void(* resetFunc) (void) = 0; //declare reset function @ address 0
 
 void setup() {
   // Sensors
@@ -45,4 +46,3 @@ void loop() {
   // Run scheduler
   schedule_process();
 }
-

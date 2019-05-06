@@ -7,8 +7,6 @@ void map_init()
     Serial.println("ERR: MAP low");
   else if(map_current_value > 108)
     Serial.println("ERR: MAP high ");
-  else
-    Serial.println("INF: MAP ok");
 }
 
 void task_map_run()
@@ -17,5 +15,3 @@ void task_map_run()
   map_current_index = map(map_current_value, map_range_min, map_range_max, 0, 15);
   map_current_index = constrain(map_current_index,0,15);
 }
-
-
