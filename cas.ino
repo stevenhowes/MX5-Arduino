@@ -62,7 +62,6 @@ void cas_process()
               cas_sync_fail = 0;
               cas_sync_fail_log = 0;
           }
-
         }
 
         // Use this number because we KNOW it's right
@@ -114,7 +113,6 @@ void cas_process()
 
   // Save current state
   cas_sgt_lastvalue = sgt;
-
 
   // SGC is the once per revolution pulse. Used to identify when Cyl 1 is TDC (as opposed to 4)
   // and is also handy for determining RPM if you trigger on the leading edge
